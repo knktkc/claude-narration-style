@@ -13,7 +13,8 @@ Claudeの回答から「AIっぽい言い回し」をなくすための文体ル
 | ファイル | 内容 |
 |---|---|
 | `CLAUDE.md` | `~/.claude/CLAUDE.md` のコピー。実体はローカル（下記の手動同期） |
-| `narration-style-reference.md` | `~/.claude/narration-style-reference.md` のコピー。全19パターンの詳細 |
+| `narration-style-reference.md` | `~/.claude/narration-style-reference.md` のコピー。全パターンの詳細 |
+| `narration-reminder.txt` | `~/.claude/narration-reminder.txt` のコピー。毎ターン注入するリマインド文（UserPromptSubmit hookが読む） |
 
 ファイル名と配置は `~/.claude/` と同じにしてある。このリポジトリで作業するとき `CLAUDE.md` がプロジェクト指示として読み込まれるが、グローバル設定と同一内容なので実害はない。
 
@@ -29,6 +30,19 @@ Claudeの回答から「AIっぽい言い回し」をなくすための文体ル
 ```sh
 cp ~/.claude/CLAUDE.md .
 cp ~/.claude/narration-style-reference.md .
+cp ~/.claude/narration-reminder.txt .
+```
+
+## hookによる常時リマインド
+
+長いセッションではCLAUDE.mdの効きが薄まるため、`~/.claude/settings.json` のUserPromptSubmit hookで `narration-reminder.txt` の内容を毎ターン注入している。
+
+```json
+"hooks": {
+  "UserPromptSubmit": [
+    { "hooks": [ { "type": "command", "command": "cat ~/.claude/narration-reminder.txt", "timeout": 5 } ] }
+  ]
+}
 ```
 
 ズレの確認は `diff ~/.claude/CLAUDE.md CLAUDE.md` と `diff ~/.claude/narration-style-reference.md narration-style-reference.md`。
