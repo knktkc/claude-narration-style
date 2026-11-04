@@ -6,6 +6,8 @@ Claudeの回答から「AIっぽい言い回し」をなくすための文体ル
 
 2026-08-25、Claudeの回答にあった「手元の環境を軽く偵察してから」の「偵察」が発端。英語エージェント文体（scout first）の直訳で、日本の仕事の文章なら「確認してから」と書く。こうした言い回しを洗い出すため、過去の回答1,691件（12プロジェクト分）を分析し、258件のAIっぽい表現を19パターンに整理した。
 
+定着した表現20件を誤検出として除外した238件のうち、最大の傾向は英語エージェント文体の直訳で、計107件（45%）が着手宣言と進捗報告に集中していた。次いで賛辞・復唱・同意・自賛・正直宣言の対人演出系が計51件あり、削除だけで直る。
+
 このルールは、英語圏のAI文体矯正スキル（[no-ai-slop](https://github.com/petergyang/no-ai-slop) / [humanizer](https://github.com/blader/humanizer) / [ux-writing-skill](https://github.com/content-designer/ux-writing-skill)）の分析調査から派生した。
 
 ## ファイル構成
@@ -45,7 +47,7 @@ cp ~/.claude/narration-reminder.txt .
 }
 ```
 
-ズレの確認は `diff ~/.claude/CLAUDE.md CLAUDE.md` と `diff ~/.claude/narration-style-reference.md narration-style-reference.md`。
+ズレの確認は `diff ~/.claude/CLAUDE.md CLAUDE.md`、`diff ~/.claude/narration-style-reference.md narration-style-reference.md`、`diff ~/.claude/narration-reminder.txt narration-reminder.txt`。
 
 ## ルールの要点
 
